@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Button</title>
+    <style>
+        body{display:flex;justify-content:center;align-items:center;height:100vh;background-color:#f0f0f0;font-family:Arial,sans-serif}.container{text-align:center}button{padding:10px 20px;font-size:16px;cursor:pointer}button:hover{background-color:#007bff;color:white}
+    </style>
+    <script>
+        var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
+        // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
+        clevertap.account.push({ "id": "TEST-86Z-99Z-6R7Z" });
+        clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
+        clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+        (function () {
+                var wzrk = document.createElement('script');
+                wzrk.type = 'text/javascript';
+                wzrk.async = true;
+                wzrk.src = ('https:' == document.location.protocol ? 'https://d2r1yp2w7bby2u.cloudfront.net' : 'http://static.clevertap.com') + '/js/clevertap.min.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(wzrk, s);
+        })();
+    </script>
+    <script>
+        clevertap.notifications.push({
+            "titleText":'Would you like to receive Push Notifications?',
+            "bodyText":'We promise to only send you relevant content and give you updates on your transactions',
+            "okButtonText":'Sign me up!',
+            "rejectButtonText":'No thanks',
+            "okButtonColor":'#f28046',
+            "askAgainTimeInSeconds":5,
+            "serviceWorkerPath": '/simple_button/clevertap_sw.js' // path to your custom service worker file
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button id="mainButton" onclick="buttonClick()">Click Me</button>
+        <p id="clickMessage"></p>
+    </div>
+    <script>
+        let clickCount = 0;
+        function buttonClick() {
+            clickCount++;
+            // Push user email to dashboard
+            clevertap.onUserLogin.push({
+                "Site": {
+                    "Email": "jidesh+ryanr@clevertap.com"
+                }
+            });
+            // Push 'Product Viewed' event
+            clevertap.event.push("Product Viewed", {
+                "Product ID": 1,
+                "Product Image": "https://d35fo82fjcw0y8.cloudfront.net/2018/07/26020307/customer-success-clevertap.jpg",
+                "Product Name": "CleverTap"
+            });
+            // Update clickMessage after button click
+            document.getElementById("clickMessage").innerText = `Button Clicked (x${clickCount})`;
+        }
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAYGTRti0pSZG4-7LP0Opgzr11W917J8AI",
+            authDomain: "ct-test-a9a64.firebaseapp.com",
+            projectId: "ct-test-a9a64",
+            storageBucket: "ct-test-a9a64.appspot.com",
+            messagingSenderId: "423549462942",
+            appId: "1:423549462942:web:c9daa3ff739434083b0e8f"
+        };
+
+         // Initialize Firebase
+         const app = initializeApp(firebaseConfig);
+    </script>
+</body>
+</html>
