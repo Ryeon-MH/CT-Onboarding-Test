@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Simple Button</title>
+    <title>TEST-Ryan</title>
     <style>
         body{display:flex;justify-content:center;align-items:center;height:100vh;background-color:#f0f0f0;font-family:Arial,sans-serif}.container{text-align:center}button{padding:10px 20px;font-size:16px;cursor:pointer}button:hover{background-color:#007bff;color:white}
     </style>
     <script>
         var clevertap = {event:[], profile:[], account:[], onUserLogin:[], notifications:[], privacy:[]};
         // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
-        clevertap.account.push({ "id": "TEST-86Z-99Z-6R7Z" });
+        //clevertap.account.push({ "id": "TEST-86Z-99Z-6R7Z" });
+        clevertap.account.push({ "id": "TEST-944-R7W-RK7Z" }); //TEST-Ryan
         clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
         clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
         (function () {
@@ -34,7 +35,7 @@
 </head>
 <body>
     <div class="container">
-        <button id="mainButton" onclick="buttonClick()">Click Me</button>
+        <button id="mainButton" onclick="buttonClick()">onUserLogin.push User Data</button>
         <p id="clickMessage"></p>
     </div>
     <script>
@@ -44,7 +45,7 @@
             // Push user email to dashboard
             clevertap.onUserLogin.push({
                 "Site": {
-                    "Email": "jidesh+ryanr@clevertap.com"
+                    "Email": "ryan.ramadhan@clevertap.com"
                 }
             });
             // Push 'Product Viewed' event
